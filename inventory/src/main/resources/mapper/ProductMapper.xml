@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pe.unac.fiis.repository.ProductRepository">
+
+    <resultMap id="productMap" type="pe.unac.fiis.domain.Product">
+        <id column="product_id" property="id"/>
+        <result column="product_name" property="name"/>
+        <result column="product_quanty" property="quanty"/>
+        <result column="product_type" property="type"/>
+        <result column="product_priece" property="priece"/>
+    </resultMap>
+    
+
+    <select id="findAll" resultMap="productMap"  statementType="CALLABLE">
+        CALL product__find_all()
+    </select>
+
+ 	<select id="insert" resultType="integer"  
+ 	 parameterType="pe.unac.fiis.domain.Product"
+ 	 statementType="CALLABLE">
+        CALL product__insert(#{name},#{quanty},#{type},#{priece})
+    </select>
+    
+    <select id="update" resultType="integer"  
+ 	 parameterType="pe.unac.fiis.domain.Product"
+ 	 statementType="CALLABLE">
+        CALL product__update(#{id},#{name},#{quanty},#{type},#{priece})
+    </select>
+    
+	<select id="delete"  
+ 	 parameterType="integer"
+ 	 statementType="CALLABLE">
+        CALL product__delete(#{id})
+    </select>
+    
+	<select id="findId" resultMap="productMap" 
+ 	 parameterType="integer"
+ 	 statementType="CALLABLE">
+        CALL product__find_id(#{id})
+    </select>
+   
+</mapper>
